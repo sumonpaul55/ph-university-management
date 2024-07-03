@@ -1,4 +1,5 @@
 import { Layout, Menu } from 'antd';
+import { Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -14,19 +15,17 @@ const items = [
 ];
 const MainLayout = () => {
 
-
     return (
         <Layout style={{ height: "100vh" }}>
             <Sider
                 breakpoint="lg"
                 collapsedWidth="0"
                 onBreakpoint={(broken) => {
-                    console.log(broken);
+                    // console.log(broken);
                 }}
                 onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
+                    // console.log(collapsed, type);
+                }}>
                 <div className="demo-logo-vertical">
                     <h1 style={{ fontSize: "20px", color: "white", fontWeight: "500", textAlign: "center", padding: '10px', borderBottom: "1px solid gray" }}>University</h1>
                 </div>
@@ -37,7 +36,6 @@ const MainLayout = () => {
                     <h1 style={{ fontWeight: "bold", color: "white", fontSize: "20px", textAlign: 'center', flex: "1" }}>University Management</h1>
                 </Header>
 
-
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div
                         style={{
@@ -45,7 +43,7 @@ const MainLayout = () => {
                             minHeight: 360,
                         }}
                     >
-                        <h1>The main content should go here</h1>
+                        <Outlet />
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
