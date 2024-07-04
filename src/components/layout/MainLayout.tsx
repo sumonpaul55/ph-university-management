@@ -1,33 +1,10 @@
 import { Layout, Menu } from 'antd';
 
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { adminSidebar } from '../../routes/admin.routes';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
-    {
-        key: "Dashboard",
-        label: <NavLink to="/admin/dashboard">Dashboard</NavLink>
-    },
-    {
-        key: "User Management",
-        label: "User Management",
-        children: [
-            {
-                key: "create Admin",
-                label: <NavLink to="/admin/create-admin">Create Admin</NavLink>
-            },
-            {
-                key: "create faculty",
-                label: <NavLink to="/admin/create-faculty">Create Faculty</NavLink>
-            },
-            {
-                key: "create student",
-                label: <NavLink to="/admin/create-student">Create student</NavLink>
-            }
-        ]
-    }
-];
 const MainLayout = () => {
 
     return (
@@ -44,7 +21,7 @@ const MainLayout = () => {
                 <div className="demo-logo-vertical">
                     <h1 style={{ fontSize: "20px", color: "white", fontWeight: "500", textAlign: "center", padding: '10px', borderBottom: "1px solid gray" }}>University</h1>
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={adminSidebar} />
             </Sider>
             <Layout>
                 <Header style={{ paddingLeft: "20px", background: "darkblue", height: "3rem", display: "flex", alignItems: "center" }} >
