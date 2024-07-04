@@ -10,7 +10,7 @@ const MainLayout = () => {
     return (
         <Layout style={{ height: "100vh" }}>
             <Sider
-                breakpoint="lg"
+                breakpoint="xl"
                 collapsedWidth="0"
                 onBreakpoint={(broken) => {
                     // console.log(broken);
