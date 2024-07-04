@@ -11,6 +11,13 @@ type TRoute = {
     path: string;
     element: ReactNode
 }
+
+type TSideBarItem = {
+    key: string;
+    label: ReactNode;
+    children?: TSideBarItem[]
+}
+
 const adminPaths = [
 
     {
@@ -47,7 +54,7 @@ const adminPaths = [
 
 
 
-const adminRoutes = adminPaths.reduce((acc: TRoute[], items): any => {
+const adminRoutes = adminPaths.reduce((acc: TRoute[], items) => {
     if (items.path && items.element) {
         acc.push({
             path: items.path,
@@ -67,17 +74,13 @@ const adminRoutes = adminPaths.reduce((acc: TRoute[], items): any => {
 
 export default adminRoutes
 
-type TSideBarItem = {
-    key: string;
-    label: ReactNode;
-    children?: TSideBarItem[]
-}
+
 
 export const adminSidebar = adminPaths.reduce((acc: TSideBarItem[], items) => {
     if (items.name && items.path) {
         acc.push({
             key: items.name,
-            label: <NavLink to={`/admin/${items.path}`}>{items.path}</NavLink>
+            label: <NavLink to={`/admin/${items.path}`}>{items.name}</NavLink>
         })
     }
     if (items.children) {
@@ -87,11 +90,12 @@ export const adminSidebar = adminPaths.reduce((acc: TSideBarItem[], items) => {
             children: items.children.map(child => (
                 {
                     key: child.name,
-                    label: child.path
+                    label: <NavLink to={`/admin/${child.path}`}> {child.name}</NavLink>
                 }
             ))
         })
     }
+    return acc
 }, [])
 
 
