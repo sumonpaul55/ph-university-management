@@ -1,18 +1,6 @@
-import { ReactNode } from "react";
+import { TRoute, TRoutesPaths } from "../types/sidebar.types";
 
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
-
-type TRoutesPaths = {
-  name: string;
-  path?: string;
-  element?: ReactNode;
-  children?: TRoutesPaths[];
-};
-
-export const routesGenerato = (routeItems: TRoutesPaths[]) => {
+export const routesGenerator = (routeItems: TRoutesPaths[]) => {
   const routes = routeItems.reduce((acc: TRoute[], items) => {
     if (items.path && items.element) {
       acc.push({
@@ -20,6 +8,7 @@ export const routesGenerato = (routeItems: TRoutesPaths[]) => {
         element: items.element,
       });
     }
+
     if (items.children) {
       items.children.forEach((child: TRoutesPaths) => {
         acc.push({
