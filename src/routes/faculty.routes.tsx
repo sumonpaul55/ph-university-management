@@ -12,5 +12,4 @@ export const facultyPaths = [
         path: "offered-course",
         element: <OfferedCourse></OfferedCourse>
     }
-
 ]
