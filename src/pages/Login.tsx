@@ -31,7 +31,6 @@ const Login = () => {
         const user = verifyToken(res.data.accessToken)
         dispatch(setUser({ user, token: res.data.accessToken }))
     }
-
     // console.log(watch("email")) // watch input value by passing the name of it
 
     return (
