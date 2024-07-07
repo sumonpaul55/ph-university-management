@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/AuthSlice";
 import { baseApi } from "./api/baseApi";
 import storage from "redux-persist/lib/storage";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 // configer redux persisit
 const persistConfig = {
   key: "auth",
@@ -16,7 +16,12 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     auth: myAuthReducer,
   },
-  middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(baseApi.middleware),
+  middleware: (getDefaultMiddlewares) =>
+    getDefaultMiddlewares({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(baseApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
