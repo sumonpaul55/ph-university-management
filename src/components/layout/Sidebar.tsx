@@ -8,7 +8,7 @@ import { userRole } from './layout.const';
 
 
 const Sidebar = () => {
-    const role = "faculty";
+    const role = "admin";
 
     let sideBaritems;
 
