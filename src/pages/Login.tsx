@@ -1,10 +1,12 @@
 
 import { Button } from "antd";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/features/auth/AuthSlice";
+import { setUser, TUser } from "../redux/features/auth/AuthSlice";
 import { verifyToken } from "../utils/VerifiyToken";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 
 type Inputs = {
@@ -13,7 +15,8 @@ type Inputs = {
 };
 
 const Login = () => {
-    const [login, { data, isLoading, error }] = useLoginMutation()
+    const navigate = useNavigate()
+    const [login] = useLoginMutation()
     const dispatch = useDispatch()
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
@@ -22,14 +25,21 @@ const Login = () => {
             password: "4844838"
         }
     });
-    const onSubmit: SubmitHandler<Inputs> = async data => {
-        const userInfo = {
-            id: data.id,
-            password: data.password
+    const onSubmit: SubmitHandler<Inputs> = async (data: FieldValues) => {
+        const toastId = toast.loading("Logging in")
+        try {
+            const userInfo = {
+                id: data.id,
+                password: data.password
+            }
+            const res = await login(userInfo).unwrap()
+            const user = verifyToken(res.data.accessToken) as TUser
+            dispatch(setUser({ user, token: res.data.accessToken }))
+            navigate(`/${user.role}/dashboard`)
+            toast.success("You are logged in successfully", { id: toastId, duration: 2000 })
+        } catch (error: any) {
+            toast.error("something went wrong", { id: toastId })
         }
-        const res = await login(userInfo).unwrap()
-        const user = verifyToken(res.data.accessToken)
-        dispatch(setUser({ user, token: res.data.accessToken }))
     }
     // console.log(watch("email")) // watch input value by passing the name of it
 

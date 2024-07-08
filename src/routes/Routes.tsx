@@ -8,6 +8,7 @@ import { adminPaths } from "./admin.routes";
 import { studentPaths } from "./student.routes";
 import { facultyPaths } from "./faculty.routes";
 import Contact from "../pages/Contact";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
     {
         path: "/contact/:token",
         element: <Contact></Contact>
+    },
+    {
+        path: "/sumon",
+        element: <ProtectedRoute><Contact></Contact></ProtectedRoute>
     }
 
 ])

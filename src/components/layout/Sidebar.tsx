@@ -5,14 +5,14 @@ import Sider from 'antd/es/layout/Sider';
 import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
 import { userRole } from './layout.const';
+import { useAppSelector } from '../../redux/hooks';
+import { selectCurrentUser } from '../../redux/features/auth/AuthSlice';
 
 
 const Sidebar = () => {
-    const role = "admin";
-
+    const user = useAppSelector(selectCurrentUser)
     let sideBaritems;
-
-    switch (role) {
+    switch (user?.role) {
         case userRole.ADMIN:
             sideBaritems = sideBarItemsGenertor(adminPaths, userRole.ADMIN);
             break;
@@ -22,7 +22,6 @@ const Sidebar = () => {
         case userRole.STUDENT:
             sideBaritems = sideBarItemsGenertor(studentPaths, userRole.STUDENT);
             break;
-
         default:
             break;
     }
@@ -31,10 +30,10 @@ const Sidebar = () => {
         <Sider
             breakpoint="xl"
             collapsedWidth="0"
-            onBreakpoint={(broken) => {
+            onBreakpoint={() => {
                 // console.log(broken);
             }}
-            onCollapse={(collapsed, type) => {
+            onCollapse={() => {
                 // console.log(collapsed, type);
             }}>
             <div className="demo-logo-vertical">

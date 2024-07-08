@@ -1,4 +1,5 @@
 
+import AcademicSemister from "../pages/admin/academicSemisterManagement/AcademicSemister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
@@ -32,6 +33,11 @@ export const adminPaths = [
                 name: 'Create Member',
                 path: 'create-member',
                 element: <CreateStudent />,
+            },
+            {
+                name: 'Academic Semister',
+                path: 'Academic Semister',
+                element: <AcademicSemister />,
             },
         ],
     },
