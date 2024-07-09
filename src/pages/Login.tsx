@@ -1,6 +1,6 @@
 
 import { Button, Row } from "antd";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { setUser, TUser } from "../redux/features/auth/AuthSlice";
@@ -11,10 +11,10 @@ import PhForm from "../components/form/PhForm";
 import PhInput from "../components/form/PhInput";
 
 
-type Inputs = {
-    id: string,
-    password: string,
-};
+// type Inputs = {
+//     id: string,
+//     password: string,
+// };
 
 const Login = () => {
     const navigate = useNavigate()
