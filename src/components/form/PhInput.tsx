@@ -1,13 +1,15 @@
-import { useFormContext } from "react-hook-form"
+import { Input } from "antd"
+import { Controller } from "react-hook-form"
 
 
-const PhInput = ({ type, name, label }) => {
-    const { register } = useFormContext()
+const PhInput = ({ type, name, label }: { type: string; name: string; label?: string }) => {
+
     return (
-        <>
-            <h2> {label ? label : null}</h2>
-            < input type={type} id={name}{...register(name)} />
-        </>
+        <div style={{ marginBottom: "10px" }}>
+            <h2 style={{ marginBottom: "5px" }}> {label ? label : null}</h2>
+            <Controller name={name} render={({ field }) => <Input {...field} type={type} id={name} />}
+            />
+        </div>
     )
 }
 
