@@ -5,7 +5,7 @@ const academiSemisterApi = baseApi.injectEndpoints({
         getAllSemisters: builder.query({
             query: () => ({
                 url: "/academic-semister",
-                method: "GET"
+                method: "GET",
             })
         })
     })
