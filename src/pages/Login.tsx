@@ -27,7 +27,6 @@ const Login = () => {
     }
 
     const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-        console.log(data)
         const toastId = toast.loading("Logging in")
         try {
             const userInfo = {
@@ -40,7 +39,7 @@ const Login = () => {
             navigate(`/${user.role}/dashboard`)
             toast.success("You are logged in successfully", { id: toastId, duration: 2000 })
         } catch (error: any) {
-            toast.error("something went wrong", { id: toastId })
+            toast.error(error?.data.message, { id: toastId })
         }
     }
     // console.log(watch("email")) // watch input value by passing the name of it
