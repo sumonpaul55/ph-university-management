@@ -14,14 +14,13 @@ const MainLayout = () => {
     }
 
     return (
-        <Layout style={{ height: "100vh" }}>
+        <Layout style={{ height: "100%" }}>
             <Sidebar></Sidebar>
             <Layout>
-                <Header style={{ paddingLeft: "20px", background: "darkblue", height: "3rem", display: "flex", alignItems: "center" }} >
+                <Header style={{ paddingLeft: "20px", background: "darkblue", height: "3rem", display: "flex", alignItems: "center", position: "sticky", top: "0", zIndex: "99" }} >
                     <Button onClick={handleLogout} >Logout</Button>
                     <h1 style={{ fontWeight: "bold", color: "white", fontSize: "20px", textAlign: 'center', flex: "1" }}>University Management</h1>
                 </Header>
-
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div
                         style={{
