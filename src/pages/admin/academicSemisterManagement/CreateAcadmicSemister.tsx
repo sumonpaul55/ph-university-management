@@ -5,7 +5,7 @@ import PhSelect from "../../../components/form/PhSelect"
 import { nameOptions } from "../ASemister.constant";
 import { monthOptions } from "../global.constant";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { academicValidationSchema } from "../../../schemaValidation/semisterSchemaValidation";
 
 
 const currentYear = new Date().getFullYear();
@@ -28,12 +28,10 @@ const CreateAcadmicSemister = () => {
         }
         console.log(semisterData)
     }
-    const academicValidationSchema = z.object({
-        name: z.string({ required_error: "Name Is Required" })
-    })
+
 
     return (
-        <div style={{ height: "200vh" }}>
+        <div>
             <Flex justify="center" align="center">
                 <Col span={8}>
                     <PhForm onSubmit={onSubmit} resolver={zodResolver(academicValidationSchema)}>
@@ -41,7 +39,7 @@ const CreateAcadmicSemister = () => {
                         <PhSelect name="year" label="Year" options={yearOptions} defalutValue="Select Year" />
                         <PhSelect name="startMonth" label="Start Month" options={monthOptions} defalutValue="Select start Month" />
                         <PhSelect name="endMonth" label="Start Month" options={monthOptions} defalutValue="Select End Month" />
-                        <Button htmlType="submit">Submit</Button>
+                        <Button style={{ border: "1px solid gray", width: "100%", marginTop: '20px' }} htmlType="submit">Submit</Button>
                     </PhForm>
                 </Col>
             </Flex>
