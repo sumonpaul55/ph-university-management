@@ -4,12 +4,51 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudents";
+import CreateAcadmicSemister from "../pages/admin/academicSemisterManagement/CreateAcadmicSemister";
+import CreateAcademicFaculty from "../pages/admin/academicFaculty/CreateAcademicFaculty";
+import AcademicFaculty from "../pages/admin/academicFaculty/AcademicFaculty";
+import CreateAcademicDepartment from "../pages/admin/academicDepartment/CreateAcademicDepartment";
+import AcademicDepartment from "../pages/admin/academicDepartment/AcademicDepartment";
 
 export const adminPaths = [
     {
         name: 'Dashboard',
         path: 'dashboard',
         element: <AdminDashboard />,
+    }, {
+        name: "Academic Management",
+        children: [
+            {
+                name: "Create A. Semister",
+                path: "create-academic-semister",
+                element: <CreateAcadmicSemister />
+            },
+            {
+                name: "Academic Semister",
+                path: "academic-semister",
+                element: <AcademicSemister />
+            },
+            {
+                name: "Create A. Faculty",
+                path: "create-academic-faculty",
+                element: < CreateAcademicFaculty />
+            },
+            {
+                name: "Academic Faculty",
+                path: "academic-faculty",
+                element: <AcademicFaculty />
+            },
+            {
+                name: "Create A. Department",
+                path: "create-academic-department",
+                element: < CreateAcademicDepartment />
+            },
+            {
+                name: "Academic Department",
+                path: "academic-department",
+                element: <AcademicDepartment />
+            }
+        ]
     },
     {
         name: 'User Management',
@@ -34,13 +73,9 @@ export const adminPaths = [
                 path: 'create-member',
                 element: <CreateStudent />,
             },
-            {
-                name: 'Academic Semister',
-                path: 'Academic Semister',
-                element: <AcademicSemister />,
-            },
         ],
     },
+
 ];
 
 
