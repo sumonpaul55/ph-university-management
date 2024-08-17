@@ -14,13 +14,22 @@ const nameOptions = [
         value: "03", label: "Fall"
     }
 ]
+const currentYear = new Date().getFullYear();
+const yearOptions = [0, 1, 2, 3, 4].map(number => {
+    return {
+        value: String(currentYear + number),
+        label: String(currentYear + number)
+    }
+})
+console.log(currentYear)
 
 const CreateAcadmicSemister = () => {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        const semisterName = nameOptions[Number(data.name) - 1].label
+        const semisterName = nameOptions[Number(data?.name) - 1]?.label
         const semisterData = {
             name: semisterName,
-            code: data.name
+            code: data.name,
+            year: data.year
         }
         console.log(semisterData)
     }
@@ -30,7 +39,8 @@ const CreateAcadmicSemister = () => {
             <Flex justify="center" align="center">
                 <Col span={8}>
                     <PhForm onSubmit={onSubmit}>
-                        <PhSelect name="name" label="Name" options={nameOptions} />
+                        <PhSelect name="name" label="Name" options={nameOptions} defalutValue="Select Name" />
+                        <PhSelect name="year" label="Year" options={yearOptions} defalutValue="Select Year" />
                         <Button htmlType="submit">Submit</Button>
                     </PhForm>
                 </Col>

@@ -4,14 +4,15 @@ import { Controller } from 'react-hook-form';
 type TSelectProps = {
     label: string;
     name: string;
-    options?: { value: string; label: string }[]
+    options?: { value: string; label: string }[];
+    defalutValue?: string
 }
-const PhSelect = ({ label, name, options }: TSelectProps) => {
+const PhSelect = ({ label, name, options, defalutValue }: TSelectProps) => {
     return (
         <Controller name={name} render={({ field }) => {
             return <Form.Item label={label}>
                 <Select
-                    defaultValue="Select Name"
+                    defaultValue={defalutValue}
                     style={{ width: "100%" }}
                     {...field}
                     options={options}
