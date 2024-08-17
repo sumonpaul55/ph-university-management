@@ -19,7 +19,7 @@ const PhSelect = ({ label, name, options, defalutValue }: TSelectProps) => {
                     size='large'
                 />
                 {
-                    error && <p style={{ color: "red", marginTop: "6px" }}>{error?.message}</p>
+                    error && <p style={{ color: "red", marginTop: "4px" }}>{error?.message}</p>
                 }
             </Form.Item>
         }} />

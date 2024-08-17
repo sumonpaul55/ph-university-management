@@ -1,11 +1,13 @@
 import { FieldValues, SubmitHandler } from "react-hook-form"
-import PhForm from "../../../components/form/PhForm"
+import PhForm from "../../../../components/form/PhForm"
 import { Button, Col, Flex } from "antd"
-import PhSelect from "../../../components/form/PhSelect"
+import PhSelect from "../../../../components/form/PhSelect"
 import { nameOptions } from "../ASemister.constant";
-import { monthOptions } from "../global.constant";
+import { monthOptions } from "../../global.constant";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { academicValidationSchema } from "../../../schemaValidation/semisterSchemaValidation";
+import { academicValidationSchema } from "../../../../schemaValidation/semisterSchemaValidation";
+import { useCreateAcademicSemisterMutation } from "../../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
 
 
 const currentYear = new Date().getFullYear();
@@ -17,7 +19,9 @@ const yearOptions = [0, 1, 2, 3, 4].map(number => {
 })
 
 const CreateAcadmicSemister = () => {
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const toastId = toast.loading("Creating...")
+    const [createAcademicSemister] = useCreateAcademicSemisterMutation()
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const semisterName = nameOptions[Number(data?.name) - 1]?.label
         const semisterData = {
             name: semisterName,
@@ -26,9 +30,18 @@ const CreateAcadmicSemister = () => {
             startMonth: data.startMonth,
             endMonth: data.endMonth
         }
-        console.log(semisterData)
+        try {
+            const res = await createAcademicSemister(semisterData)
+            if (res.data?.success) {
+                toast.success(res?.data?.message, { id: toastId })
+            }
+            if (res?.error) {
+                toast.error(res?.error?.data?.message, { id: toastId })
+            }
+        } catch (err: any) {
+            toast.error("Something went wrong", { id: toastId })
+        }
     }
-
 
     return (
         <div>

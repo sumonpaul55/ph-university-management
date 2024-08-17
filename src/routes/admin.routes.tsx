@@ -1,14 +1,14 @@
 
-import AcademicSemister from "../pages/admin/academicSemisterManagement/AcademicSemister";
+import AcademicSemister from "../pages/admin/AcademicManagement/academicSemister/AcademicSemister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudents";
-import CreateAcadmicSemister from "../pages/admin/academicSemisterManagement/CreateAcadmicSemister";
-import CreateAcademicFaculty from "../pages/admin/academicFaculty/CreateAcademicFaculty";
-import AcademicFaculty from "../pages/admin/academicFaculty/AcademicFaculty";
-import CreateAcademicDepartment from "../pages/admin/academicDepartment/CreateAcademicDepartment";
-import AcademicDepartment from "../pages/admin/academicDepartment/AcademicDepartment";
+import CreateAcadmicSemister from "../pages/admin/AcademicManagement/academicSemister/CreateAcadmicSemister";
+import CreateAcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/CreateAcademicFaculty";
+import AcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/AcademicFaculty";
+import CreateAcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/CreateAcademicDepartment";
+import AcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/AcademicDepartment";
 
 export const adminPaths = [
     {

@@ -1,4 +1,5 @@
-import { useGetAllSemistersQuery } from "../../../redux/features/academicSemister/academicSemisterApi"
+import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api"
+
 
 const AcademicSemister = () => {
     const { data } = useGetAllSemistersQuery(undefined)

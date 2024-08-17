@@ -10,7 +10,7 @@ const PhInput = ({ type, name, label }: { type: string; name: string; label?: st
             <Controller name={name} render={({ field, fieldState: { error } }) => <Form.Item label={label}>
                 <Input {...field} type={type} id={name} size='large' />
                 {
-                    error && <p style={{ color: "red", marginTop: "6px" }}>{error?.message}</p>
+                    error && <p style={{ color: "red", marginTop: "4px" }}>{error?.message}</p>
                 }
             </Form.Item>}
             />
