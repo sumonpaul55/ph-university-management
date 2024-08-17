@@ -29,7 +29,7 @@ const CreateAcadmicSemister = () => {
         console.log(semisterData)
     }
     const academicValidationSchema = z.object({
-
+        name: z.string({ required_error: "Name Is Required" })
     })
 
     return (

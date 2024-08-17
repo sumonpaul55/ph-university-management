@@ -9,7 +9,7 @@ type TSelectProps = {
 }
 const PhSelect = ({ label, name, options, defalutValue }: TSelectProps) => {
     return (
-        <Controller name={name} render={({ field }) => {
+        <Controller name={name} render={({ field, fieldState: { error } }) => {
             return <Form.Item label={label}>
                 <Select
                     defaultValue={defalutValue}
@@ -18,6 +18,9 @@ const PhSelect = ({ label, name, options, defalutValue }: TSelectProps) => {
                     options={options}
                     size='large'
                 />
+                {
+                    error && <p style={{ color: "red", marginTop: "6px" }}>{error?.message}</p>
+                }
             </Form.Item>
         }} />
     )
