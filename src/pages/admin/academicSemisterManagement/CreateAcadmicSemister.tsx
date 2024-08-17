@@ -16,10 +16,8 @@ const CreateAcadmicSemister = () => {
             <Flex justify="center" align="center">
                 <Col span={8}>
                     <PhForm onSubmit={onSubmit}>
-                        <PhSelect label="Name" />
-                        <PhInput type="text" name="name" label="Name" />
-                        <PhInput type="text" name="name" label="Name" />
-                        <PhInput type="text" name="name" label="Name" />
+                        <PhSelect name="name" label="Name" />
+                        <PhInput type="text" name="code" label="Name" />
                         <Button htmlType="submit">Submit</Button>
                     </PhForm>
                 </Col>

@@ -7,7 +7,9 @@ const PhInput = ({ type, name, label }: { type: string; name: string; label?: st
     return (
         <div style={{ marginBottom: "10px" }}>
             {/* <h3 style={{ marginBottom: "5px" }}> {label ? label : null}</h3> */}
-            <Controller name={name} render={({ field }) => <Form.Item label={label}><Input {...field} type={type} id={name} /></Form.Item>}
+            <Controller name={name} render={({ field }) => <Form.Item label={label}>
+                <Input {...field} type={type} id={name} />
+            </Form.Item>}
             />
         </div>
     )
