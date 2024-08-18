@@ -1,15 +1,10 @@
 import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api"
+import { TacademicSemisterData } from "../../../../types/academicSemister.type";
 
-interface DataType {
-    key: React.Key;
-    name: string;
-    year: number;
-    startMonth: string;
-    endMonth: string;
-}
-
-const columns: TableColumnsType<DataType> = [
+export type TTableData = Pick<TacademicSemisterData,
+    '_id' | 'name' | 'startMonth' | 'endMonth' | 'year'>
+const columns: TableColumnsType<TTableData> = [
     {
         title: 'Name',
         dataIndex: 'name',
@@ -61,15 +56,14 @@ const columns: TableColumnsType<DataType> = [
 ];
 
 
-const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
 };
 const AcademicSemister = () => {
     const { data: academicsmster } = useGetAllSemistersQuery(undefined)
-    console.log(academicsmster)
     const tableAsemisterData = academicsmster?.map(({ _id, name, year, startMonth, endMonth }) => {
         return {
-            key: _id, name, year, startMonth, endMonth
+            _id, name, year, startMonth, endMonth
         }
     })
     return (
