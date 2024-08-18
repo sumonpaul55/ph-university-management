@@ -14,10 +14,15 @@ const academicManagementApi = baseApi.injectEndpoints({
       },
     }),
     getAllSemisters: builder.query({
-      query: () => {
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((items: { name: string; value: string }) => params.append(items.name, items.value));
+        }
         return {
           url: "/academic-semister",
           method: "GET",
+          params,
         };
       },
       transformResponse: (Response: TresponseWithQuery<TacademicSemisterData[]>) => {

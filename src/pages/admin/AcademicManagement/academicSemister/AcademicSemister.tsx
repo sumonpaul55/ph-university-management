@@ -1,6 +1,7 @@
 import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api"
 import { TacademicSemisterData } from "../../../../types/academicSemister.type";
+import { useState } from "react";
 
 export type TTableData = Pick<TacademicSemisterData,
     '_id' | 'name' | 'startMonth' | 'endMonth' | 'year'>
@@ -11,31 +12,22 @@ const columns: TableColumnsType<TTableData> = [
         showSorterTooltip: { target: 'full-header' },
         filters: [
             {
-                text: 'Joe',
-                value: 'Joe',
+                text: 'Autumn',
+                value: 'Autumn',
             },
             {
-                text: 'Jim',
-                value: 'Jim',
+                text: 'Summer',
+                value: 'Summer',
             },
             {
-                text: 'Submenu',
-                value: 'Submenu',
-                children: [
-                    {
-                        text: 'Green',
-                        value: 'Green',
-                    },
-                    {
-                        text: 'Black',
-                        value: 'Black',
-                    },
-                ],
+                text: 'Fall',
+                value: 'Fall',
             },
+
         ],
         // specify the condition of filtering result
         // here is that finding the name started with `value`
-        onFilter: (value, record) => record.name.indexOf(value as string) === 0,
+        // onFilter: (value, record) => record.name.indexOf(value as string) === 0,
         sorter: (a, b) => a.name.length - b.name.length,
         sortDirections: ['descend'],
     },
@@ -56,16 +48,25 @@ const columns: TableColumnsType<TTableData> = [
 ];
 
 
-const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-};
 const AcademicSemister = () => {
-    const { data: academicsmster } = useGetAllSemistersQuery(undefined)
+    const [queryParams, setQueryParams] = useState<string | unknown>([])
+
+    const { data: academicsmster } = useGetAllSemistersQuery(queryParams)
     const tableAsemisterData = academicsmster?.map(({ _id, name, year, startMonth, endMonth }) => {
         return {
-            _id, name, year, startMonth, endMonth
+            key: _id, _id, name, year, startMonth, endMonth
         }
     })
+
+
+    const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
+        // console.log(extra, filters);
+        if (extra.action === "filter") {
+            const querynameParams: { name: string; value: any }[] = []
+            filters?.name!.map(item => querynameParams.push({ name: "name", value: item }))
+            setQueryParams(querynameParams)
+        }
+    };
     return (
         <Table
             columns={columns}
