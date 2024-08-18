@@ -2,6 +2,7 @@ import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api"
 import { TacademicSemisterData } from "../../../../types/academicSemister.type";
 import { useState } from "react";
+import { TQueryParams } from "../../../../types";
 
 export type TTableData = Pick<TacademicSemisterData,
     '_id' | 'name' | 'startMonth' | 'endMonth' | 'year'>
@@ -34,8 +35,25 @@ const columns: TableColumnsType<TTableData> = [
     {
         title: 'Year',
         dataIndex: 'year',
-        // defaultSortOrder: 'descend',
         // sorter: (a, b) => a.age - b.age,
+        filters: [
+            {
+                text: "2024",
+                value: "2024",
+            },
+            {
+                text: "2025",
+                value: "2025",
+            },
+            {
+                text: "2026",
+                value: "2026",
+            },
+            {
+                text: "2027",
+                value: "2027",
+            },
+        ]
     },
     {
         title: 'Start Month',
@@ -49,9 +67,10 @@ const columns: TableColumnsType<TTableData> = [
 
 
 const AcademicSemister = () => {
-    const [queryParams, setQueryParams] = useState<string | unknown>([])
+    const [queryParams, setQueryParams] = useState<TQueryParams[] | undefined>(undefined)
 
-    const { data: academicsmster } = useGetAllSemistersQuery(queryParams)
+    const { data: academicsmster, isFetching } = useGetAllSemistersQuery(queryParams)
+
     const tableAsemisterData = academicsmster?.map(({ _id, name, year, startMonth, endMonth }) => {
         return {
             key: _id, _id, name, year, startMonth, endMonth
@@ -60,15 +79,17 @@ const AcademicSemister = () => {
 
 
     const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
-        // console.log(extra, filters);
+        const querynameParams: TQueryParams[] = []
         if (extra.action === "filter") {
-            const querynameParams: { name: string; value: any }[] = []
-            filters?.name!.map(item => querynameParams.push({ name: "name", value: item }))
-            setQueryParams(querynameParams)
+            filters.name?.forEach(item => querynameParams.push({ name: "name", value: item }))
+            filters.year?.forEach(item => querynameParams.push({ name: "year", value: item }))
         }
+
+        setQueryParams(querynameParams)
     };
     return (
         <Table
+            loading={isFetching}
             columns={columns}
             dataSource={tableAsemisterData}
             onChange={onChange}

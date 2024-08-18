@@ -1,9 +1,9 @@
 
 import AcademicSemister from "../pages/admin/AcademicManagement/academicSemister/AcademicSemister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateAdmin from "../pages/admin/CreateAdmin";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateStudent from "../pages/admin/CreateStudents";
+import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
+import CreateStudent from "../pages/admin/userManagement/CreateStudents";
 import CreateAcadmicSemister from "../pages/admin/AcademicManagement/academicSemister/CreateAcadmicSemister";
 import CreateAcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/CreateAcademicFaculty";
 import AcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/AcademicFaculty";

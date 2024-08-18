@@ -23,3 +23,5 @@ export type TRsponse<T> = {
 };
 
 export type TresponseWithQuery<T> = TRsponse<T> & BaseQueryApi;
+
+export type TQueryParams = { name: string; value: boolean | React.Key };
