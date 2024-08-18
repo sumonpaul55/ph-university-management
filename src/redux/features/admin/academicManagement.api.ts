@@ -2,14 +2,6 @@ import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllSemisters: builder.query({
-      query: () => {
-        return {
-          url: "/academic-semister",
-          method: "GET",
-        };
-      },
-    }),
     createAcademicSemister: builder.mutation({
       query: (data) => {
         return {
@@ -17,6 +9,17 @@ const academicManagementApi = baseApi.injectEndpoints({
           method: "POST",
           body: data,
         };
+      },
+    }),
+    getAllSemisters: builder.query({
+      query: () => {
+        return {
+          url: "/academic-semister",
+          method: "GET",
+        };
+      },
+      transformResponse: (Response: any) => {
+        return Response.data;
       },
     }),
   }),
