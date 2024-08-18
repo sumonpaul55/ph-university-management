@@ -60,28 +60,22 @@ const columns: TableColumnsType<DataType> = [
     },
 ];
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-]
 
 const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
 };
 const AcademicSemister = () => {
     const { data: academicsmster } = useGetAllSemistersQuery(undefined)
-
-
-
-    console.log(data)
+    console.log(academicsmster)
+    const tableAsemisterData = academicsmster?.map(({ _id, name, year, startMonth, endMonth }) => {
+        return {
+            key: _id, name, year, startMonth, endMonth
+        }
+    })
     return (
         <Table
             columns={columns}
-            dataSource={data}
+            dataSource={tableAsemisterData}
             onChange={onChange}
             showSorterTooltip={{ target: 'sorter-icon' }}
         />

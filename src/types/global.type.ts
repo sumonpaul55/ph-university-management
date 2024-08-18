@@ -1,3 +1,5 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
+
 export const allMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export const monthOptions = allMonths.map((month) => {
@@ -13,7 +15,11 @@ export type TError = {
   status?: number;
 };
 
-export type TRsponse = {
-  data?: any;
+export type TRsponse<T> = {
+  data?: T;
   error?: TError;
+  success?: boolean;
+  message?: string;
 };
+
+export type TresponseWithQuery<T> = TRsponse<T> & BaseQueryApi;

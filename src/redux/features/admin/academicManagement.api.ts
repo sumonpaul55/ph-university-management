@@ -1,3 +1,5 @@
+import { TresponseWithQuery } from "../../../types";
+import { TacademicSemisterData } from "../../../types/academicSemister.type";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
@@ -18,7 +20,7 @@ const academicManagementApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      transformResponse: (Response: any) => {
+      transformResponse: (Response: TresponseWithQuery<TacademicSemisterData[]>) => {
         return Response.data;
       },
     }),
