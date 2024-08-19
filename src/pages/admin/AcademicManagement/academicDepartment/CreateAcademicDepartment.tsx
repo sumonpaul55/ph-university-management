@@ -36,10 +36,10 @@ const CreateAcademicDepartment = () => {
         <PhForm onSubmit={onsubmit}>
             <Col span={12} style={{ margin: "auto" }}>
                 <Col>
-                    <PhInput label="Department Name" name="name" type="text" />
+                    <PhInput label="Department Name" name="name" type="text" placeholder="Academic Department name" />
                 </Col>
                 <Col>
-                    <PhSelect disabled={isFetching} label="Academic Faculty" name="academicFaculty" options={facultyOptions} />
+                    <PhSelect disabled={isFetching} label="Academic Faculty" name="academicFaculty" options={facultyOptions} defalutValue="Select Faculty" />
                 </Col>
                 <Button htmlType="submit"> Submit</Button>
             </Col>

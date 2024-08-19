@@ -30,7 +30,7 @@ const CreateAcademicFaculty = () => {
         <PhForm onSubmit={onsubmit} resolver={zodResolver(academicFacultyValidationSchema)}>
             <Flex justify="center">
                 <Col span={24} md={{ span: 12 }}>
-                    <PhInput label="Academic Faculty Name" name="name" type="text" />
+                    <PhInput label="Academic Faculty Name" name="name" type="text" placeholder="Academic faculty name" />
                     <Button htmlType="submit">Submit</Button>
                 </Col>
 
