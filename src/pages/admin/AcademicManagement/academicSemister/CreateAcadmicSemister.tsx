@@ -3,7 +3,7 @@ import PhForm from "../../../../components/form/PhForm"
 import { Button, Col, Flex } from "antd"
 import PhSelect from "../../../../components/form/PhSelect"
 import { nameOptions } from "../ASemister.constant";
-import { monthOptions, TRsponse } from "../../../../types/global.type";
+import { monthOptions, TResponse, } from "../../../../types/global.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicValidationSchema } from "../../../../schemaValidation/semisterSchemaValidation";
 import { useCreateAcademicSemisterMutation } from "../../../../redux/features/admin/academicManagement.api";
@@ -20,8 +20,9 @@ const yearOptions = [0, 1, 2, 3, 4].map(number => {
 
 const CreateAcadmicSemister = () => {
     const [createAcademicSemister] = useCreateAcademicSemisterMutation()
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
+
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Creating...")
         const semisterName = nameOptions[Number(data?.name) - 1]?.label
         const semisterData = {
@@ -32,7 +33,7 @@ const CreateAcadmicSemister = () => {
             endMonth: data.endMonth
         }
         try {
-            const res = await createAcademicSemister(semisterData) as TRsponse<any>
+            const res = await createAcademicSemister(semisterData) as TResponse<any>
             if (res.data?.success) {
                 toast.success(res?.data?.message, { id: toastId })
             }

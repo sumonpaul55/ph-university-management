@@ -15,13 +15,13 @@ export type TError = {
   status?: number;
 };
 
-export type TRsponse<T> = {
+export type TResponse<T> = {
   data?: T;
   error?: TError;
   success?: boolean;
   message?: string;
 };
 
-export type TresponseWithQuery<T> = TRsponse<T> & BaseQueryApi;
+export type TresponseWithQuery<T> = TResponse<T> & BaseQueryApi;
 
 export type TQueryParams = { name: string; value: boolean | React.Key };

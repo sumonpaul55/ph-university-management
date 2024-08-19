@@ -7,11 +7,14 @@ import { bloodGroups, genders } from '../../../lib/globalConstant'
 import { ganereteOption } from '../../../utils/optionsGenerator'
 import PhDatePicker from '../../../components/form/PhDatePicker'
 import { useGetAllSemistersQuery } from '../../../redux/features/admin/academicManagement.api'
+import { useAddStudentsMutation } from '../../../redux/features/admin/userManagement.api'
 
 const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
 
-    // const [addStudent] = useAddStudentsMutation();
+    const [addStudent] = useAddStudentsMutation(undefined);
+
+
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
     });
@@ -108,7 +111,7 @@ const CreateStudent = () => {
                 </Col>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     {
-                        <PhSelect label='Admission Semister' name="admissionSemister" options={semisterData!} />
+                        <PhSelect label='Admission Semister' name="admissionSemister" disabled={semisterLoading} options={semisterData} />
                     }
                 </Col>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>

@@ -29,6 +29,25 @@ const academicManagementApi = baseApi.injectEndpoints({
         return Response.data;
       },
     }),
+    // academic faculty
+    createAcademicFaculty: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/academic-faculty/create-faculty",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
+    getAcademicFaculty: builder.query({
+      query: () => {
+        return {
+          url: "/academic-faculty",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
-export const { useGetAllSemistersQuery, useCreateAcademicSemisterMutation } = academicManagementApi;
+export const { useGetAllSemistersQuery, useCreateAcademicSemisterMutation, useCreateAcademicFacultyMutation, useGetAcademicFacultyQuery } =
+  academicManagementApi;
