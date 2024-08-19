@@ -5,10 +5,13 @@ const uaseManagementApi = baseApi.injectEndpoints({
     addStudents: builder.mutation({
       query: (data) => {
         return {
-          url: "",
+          url: "/users/create-student",
+          method: "POST",
           body: data,
         };
       },
     }),
   }),
 });
+
+export const { useAddStudentsMutation } = uaseManagementApi;

@@ -4,10 +4,10 @@ import { Controller } from 'react-hook-form';
 type TSelectProps = {
     label: string;
     name: string;
-    options?: { value: string; label: string }[];
+    options: { value: string; label: string }[];
     defalutValue?: string
 }
-const PhSelect = ({ label, name, options, defalutValue }: TSelectProps) => {
+const PhSelect = ({ label, name, options, defalutValue, }: TSelectProps) => {
     return (
         <Controller name={name} render={({ field, fieldState: { error } }) => {
             return <Form.Item label={label}>

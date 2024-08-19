@@ -12,6 +12,7 @@ type TFormConfig = {
     defaultValues?: Record<string, any>,
     resolver?: any
 }
+
 const PhForm = ({ onSubmit, children, defaultValues, resolver }: TSubmitHandler) => {
     let formConfig: TFormConfig = {}
     if (defaultValues) {
@@ -22,9 +23,14 @@ const PhForm = ({ onSubmit, children, defaultValues, resolver }: TSubmitHandler)
     }
     const methods = useForm(formConfig)
 
+    const submitForm: SubmitHandler<FieldValues> = (data) => {
+        onSubmit(data);
+        methods.reset()
+    }
+
     return (
         <FormProvider {...methods} >
-            <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+            <Form layout="vertical" onFinish={methods.handleSubmit(submitForm)}>
                 {children}
             </Form>
         </FormProvider>
