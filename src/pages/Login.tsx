@@ -34,6 +34,7 @@ const Login = () => {
                 password: data.password
             }
             const res = await login(userInfo).unwrap()
+
             const user = verifyToken(res.data.accessToken) as TUser
             dispatch(setUser({ user, token: res.data.accessToken }))
             navigate(`/${user.role}/dashboard`)

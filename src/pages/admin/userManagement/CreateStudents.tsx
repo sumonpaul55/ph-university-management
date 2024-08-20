@@ -6,11 +6,12 @@ import PhSelect from '../../../components/form/PhSelect'
 import { bloodGroups, genders } from '../../../lib/globalConstant'
 import { ganereteOption } from '../../../utils/optionsGenerator'
 import PhDatePicker from '../../../components/form/PhDatePicker'
-import { useGetAllSemistersQuery } from '../../../redux/features/admin/academicManagement.api'
+import { useGetAcademicDepartmentQuery, useGetAllSemistersQuery } from '../../../redux/features/admin/academicManagement.api'
 import { useAddStudentsMutation } from '../../../redux/features/admin/userManagement.api'
 
 const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
+    const { data: academicDepartment, } = useGetAcademicDepartmentQuery(undefined, { skip: semisterLoading })
 
     const [addStudent] = useAddStudentsMutation(undefined);
 
@@ -18,17 +19,59 @@ const CreateStudent = () => {
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
     });
+    const academicDepartmentData = academicDepartment?.data?.map((item: { _id: string; name: string }) => {
+        return { value: item?._id, label: `${item.name}` }
+    });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const studenObj = {
+            Password: "student1234",
+            studentData: data
+        }
+
         const formData = new FormData()
 
-        formData.append("data", JSON.stringify(data));
-
+        formData.append("studentData", JSON.stringify(studenObj));
+        // console.log(studenObj)
         // console.log([...formData.entries()])
-        console.log(Object.fromEntries(formData))
+        const res = await addStudent(formData)
+        // console.log(res)
+        // console.log(res)
+    }
+    const studentDefaultvalue = {
+        "name": {
+            "firstName": "Paul",
+            "middleName": "sumonpaul",
+            "lastName": "chandra"
+        },
+        "gender": "male",
+
+        "email": "paul50@example.com",
+        "contactNumber": "123-456-7890",
+        "emergencyContactNo": "098-765-4321",
+        "bloodGroup": "O+",
+        "presentAddress": "123 Main St, Anytown, USA",
+        "permenentAdress": "456 Elm St, Anytown, USA",
+        "guardian": {
+            "fatherName": "Richard Doe",
+            "fatherOccupation": "Engineer",
+            "fatherContactNo": "111-222-3333",
+            "motherName": "Jane Doe",
+            "motherOccupation": "Teacher",
+            "motherContactNo": "444-555-6666"
+        },
+        "localGuardian": {
+            "name": "Tom Smith",
+            "occupation": "Doctor",
+            "contactNo": "777-888-9999",
+            "address": "789 Oak St, Anytown, USA"
+        },
+        "profileImage": "",
+
+        "isDeleted": false
     }
     return (
-        <PhForm onSubmit={onSubmit}>
+        <PhForm onSubmit={onSubmit} defaultValues={studentDefaultvalue}>
             <Row gutter={10}>
                 <Divider>Personal Info</Divider>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
@@ -116,13 +159,14 @@ const CreateStudent = () => {
                 </Col>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     {
-                        <PhInput label='Academic Department' name="academicDepartment" type='text' />
+
+                        <PhSelect label='Academic Department' name="academicDepartment" options={academicDepartmentData} />
                     }
 
                 </Col>
             </Row>
-            <Button htmlType='submit'>Submit</Button>
-        </PhForm>
+            <Button htmlType='submit' style={{ margin: "20px 0" }}>Submit</Button>
+        </PhForm >
     )
 }
 

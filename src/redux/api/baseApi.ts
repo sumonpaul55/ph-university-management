@@ -22,6 +22,7 @@ const BaseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, Definition
       method: "POST",
       credentials: "include",
     });
+
     const data = await res.json();
     // refresh token valid
     if (data?.data?.accessToken) {
