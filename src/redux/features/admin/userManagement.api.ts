@@ -7,9 +7,6 @@ const uaseManagementApi = baseApi.injectEndpoints({
         return {
           url: "/users/create-student",
           method: "POST",
-          headers: {
-            "Content-Type": "multipart/form-data;",
-          },
           body: data,
           formData: true,
         };

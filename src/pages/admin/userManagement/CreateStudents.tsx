@@ -1,7 +1,7 @@
 import PhForm from '../../../components/form/PhForm'
-import { FieldValues, SubmitHandler } from 'react-hook-form'
+import { Controller, FieldValues, SubmitHandler } from 'react-hook-form'
 import PhInput from '../../../components/form/PhInput'
-import { Button, Col, Divider, Row } from 'antd'
+import { Button, Col, Divider, Form, Input, Row } from 'antd'
 import PhSelect from '../../../components/form/PhSelect'
 import { bloodGroups, genders } from '../../../lib/globalConstant'
 import { ganereteOption } from '../../../utils/optionsGenerator'
@@ -13,8 +13,7 @@ const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
     const { data: academicDepartment, } = useGetAcademicDepartmentQuery(undefined, { skip: semisterLoading })
 
-    const [addStudent] = useAddStudentsMutation(undefined);
-
+    const [addStudents, { data, error }] = useAddStudentsMutation();
 
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
@@ -24,20 +23,23 @@ const CreateStudent = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        // const { dateOfBirth } = data
+        // const updatedDob = String(dateOfBirth)
+        // data.dateOfBirth = updatedDob
+        const formData = new FormData()
+        formData.append("file", data.image)
+
         const studenObj = {
             Password: "student1234",
             studentData: data
         }
 
-        const formData = new FormData()
-
-        formData.append("studentData", JSON.stringify(studenObj));
-        // console.log(studenObj)
+        formData.append("data", JSON.stringify(studenObj));
         // console.log([...formData.entries()])
-        const res = await addStudent(formData)
-        // console.log(res)
-        // console.log(res)
+        await addStudents(formData)
     }
+
+    console.log("error", error, "data", data)
     const studentDefaultvalue = {
         "name": {
             "firstName": "Paul",
@@ -92,6 +94,14 @@ const CreateStudent = () => {
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     <PhSelect label='Blood' name="bloodGroup" defalutValue='blood Group' options={ganereteOption(bloodGroups)} />
                 </Col>
+                <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
+                    <Controller name="image" render={({ field: { onChange, value, ...field } }) => {
+                        return <Form.Item>
+                            <Input onChange={(e) => onChange(e.target.files?.[0])} type="file" size='large' value={value?.filename} {...field} />
+                        </Form.Item>
+                    }} />
+                </Col>
+
             </Row>
             <Row gutter={10}>
                 <Divider>Contact Info</Divider>
@@ -149,9 +159,9 @@ const CreateStudent = () => {
             </Row>
             <Row gutter={10}>
                 <Divider>Academic Info</Divider>
-                <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
+                {/* <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     <PhInput label='Profile Image' name="profileImage" type='text' />
-                </Col>
+                </Col> */}
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     {
                         <PhSelect label='Admission Semister' name="admissionSemister" disabled={semisterLoading} options={semisterData} />
