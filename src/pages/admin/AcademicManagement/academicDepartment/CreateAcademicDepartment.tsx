@@ -5,8 +5,7 @@ import PhSelect from "../../../../components/form/PhSelect"
 import { FieldValues } from "react-hook-form"
 import { useCreateAcademicDepartmentMutation, useGetAcademicFacultyQuery } from "../../../../redux/features/admin/academicManagement.api"
 import { toast } from "sonner"
-import { TResponse } from "../../../../types"
-import { TDepartmentResponse } from "../../../../types/academic types/academic.type"
+import { TDepartmentResponse, TResponse } from "../../../../types"
 
 
 const CreateAcademicDepartment = () => {

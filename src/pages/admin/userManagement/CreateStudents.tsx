@@ -15,9 +15,8 @@ const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
     const { data: academicDepartment, } = useGetAcademicDepartmentQuery(undefined, { skip: semisterLoading })
 
-    const [addStudents] = useAddStudentsMutation();
-
-
+    const [addStudents, { data }] = useAddStudentsMutation();
+    console.log(data)
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
     });
@@ -35,14 +34,12 @@ const CreateStudent = () => {
         }
 
         formData.append("data", JSON.stringify(studenObj));
-
         formData.append("file", data.image)
-
         // console.log([...formData.entries()])
         const res = await addStudents(formData) as TResponse<any>
 
         if (res.error) {
-            toast.error(res.error.data.message, {
+            toast.error(res?.error?.data?.message, {
                 id: toastId
             })
         }
@@ -52,6 +49,7 @@ const CreateStudent = () => {
             })
         }
 
+
     }
 
 
@@ -60,12 +58,12 @@ const CreateStudent = () => {
     const studentDefaultvalue = {
         "name": {
             "firstName": "Paul",
-            "middleName": "sumonpaul",
+            "middleName": "sumon",
             "lastName": "chandra"
         },
         "gender": "male",
 
-        "email": "paul50@example.com",
+        // "email": "sumpaul3@gmail.com",
         "contactNumber": "123-456-7890",
         "emergencyContactNo": "098-765-4321",
         "bloodGroup": "O+",

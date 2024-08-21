@@ -11,7 +11,22 @@ const uaseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAllStudent: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/students",
+          method: "GET",
+          params,
+        };
+      },
+    }),
   }),
 });
 
-export const { useAddStudentsMutation } = uaseManagementApi;
+export const { useAddStudentsMutation, useGetAllStudentQuery } = uaseManagementApi;

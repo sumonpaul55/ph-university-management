@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { academicValidationSchema } from "../../../../schemaValidation/semisterSchemaValidation";
 import { useCreateAcademicSemisterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
-import { TacademicSemisterData } from "../../../../types/academic types/academic.type";
+import { TacademicSemisterData } from "../../../../types/academicManagement.type";
 
 
 const currentYear = new Date().getFullYear();
