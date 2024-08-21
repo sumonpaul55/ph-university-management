@@ -7,5 +7,15 @@ export interface TacademicSemisterData {
   endMonth: string;
   createdAt: string;
   updatedAt: string;
+  message?: string;
+  __v: number;
+}
+
+export interface TDepartmentResponse {
+  _id: string;
+  name: string;
+  academicFaculty: string;
+  updatedAt: string;
+  message?: string;
   __v: number;
 }

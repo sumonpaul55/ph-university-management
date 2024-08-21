@@ -1,5 +1,5 @@
 import { TresponseWithQuery } from "../../../types";
-import { TacademicSemisterData } from "../../../types/academicSemister.type";
+import { TacademicSemisterData } from "../../../types/academic types/academic.type";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({

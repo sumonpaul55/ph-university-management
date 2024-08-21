@@ -6,6 +6,7 @@ import { FieldValues } from "react-hook-form"
 import { useCreateAcademicDepartmentMutation, useGetAcademicFacultyQuery } from "../../../../redux/features/admin/academicManagement.api"
 import { toast } from "sonner"
 import { TResponse } from "../../../../types"
+import { TDepartmentResponse } from "../../../../types/academic types/academic.type"
 
 
 const CreateAcademicDepartment = () => {
@@ -19,14 +20,13 @@ const CreateAcademicDepartment = () => {
     })
     const onsubmit = async (data: FieldValues) => {
         const toastId = toast.loading("Creating...")
-        const res = await createDepartment(data) as TResponse<any>
+        const res = await createDepartment(data) as TResponse<TDepartmentResponse>
         try {
-            if (res?.data?.success) {
-                toast.success(res?.data?.message, { id: toastId })
-            }
+
             if (res.error) {
                 toast.error(res?.error?.data?.message, { id: toastId })
             }
+            toast.success(res?.data?.message, { id: toastId })
         } catch (error) {
             console.log(error)
             toast.error("Something went wrong", { id: toastId })

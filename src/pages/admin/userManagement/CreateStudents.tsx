@@ -193,7 +193,7 @@ const CreateStudent = () => {
                 </Col>
             </Row>
             <Button htmlType='submit' style={{ margin: "20px 0" }}>Submit</Button>
-        </PhForm >
+        </PhForm>
     )
 }
 

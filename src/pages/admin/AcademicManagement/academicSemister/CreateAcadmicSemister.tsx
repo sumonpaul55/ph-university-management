@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { academicValidationSchema } from "../../../../schemaValidation/semisterSchemaValidation";
 import { useCreateAcademicSemisterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
+import { TacademicSemisterData } from "../../../../types/academic types/academic.type";
 
 
 const currentYear = new Date().getFullYear();
@@ -33,13 +34,11 @@ const CreateAcadmicSemister = () => {
             endMonth: data.endMonth
         }
         try {
-            const res = await createAcademicSemister(semisterData) as TResponse<any>
-            if (res.data?.success) {
-                toast.success(res?.data?.message, { id: toastId })
-            }
+            const res = await createAcademicSemister(semisterData) as TResponse<TacademicSemisterData>
+
             if (res?.error) {
                 toast.error(res?.error?.data?.message, { id: toastId })
-            }
+            } else toast.success(res?.data?.message, { id: toastId })
         } catch (err: any) {
             toast.error("Something went wrong", { id: toastId })
         }
