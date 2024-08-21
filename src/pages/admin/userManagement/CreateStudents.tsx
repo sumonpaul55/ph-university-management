@@ -8,12 +8,15 @@ import { ganereteOption } from '../../../utils/optionsGenerator'
 import PhDatePicker from '../../../components/form/PhDatePicker'
 import { useGetAcademicDepartmentQuery, useGetAllSemistersQuery } from '../../../redux/features/admin/academicManagement.api'
 import { useAddStudentsMutation } from '../../../redux/features/admin/userManagement.api'
+import { toast } from 'sonner'
+import { TResponse } from '../../../types'
 
 const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
     const { data: academicDepartment, } = useGetAcademicDepartmentQuery(undefined, { skip: semisterLoading })
 
-    const [addStudents, { data, error }] = useAddStudentsMutation();
+    const [addStudents] = useAddStudentsMutation();
+
 
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
@@ -23,11 +26,8 @@ const CreateStudent = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        // const { dateOfBirth } = data
-        // const updatedDob = String(dateOfBirth)
-        // data.dateOfBirth = updatedDob
+        const toastId = toast.loading("Creating...")
         const formData = new FormData()
-        formData.append("file", data.image)
 
         const studenObj = {
             Password: "student1234",
@@ -35,11 +35,28 @@ const CreateStudent = () => {
         }
 
         formData.append("data", JSON.stringify(studenObj));
+
+        formData.append("file", data.image)
+
         // console.log([...formData.entries()])
-        await addStudents(formData)
+        const res = await addStudents(formData) as TResponse<any>
+
+        if (res.error) {
+            toast.error(res.error.data.message, {
+                id: toastId
+            })
+        }
+        if (res.data?.success) {
+            toast.success(res.data.message, {
+                id: toastId
+            })
+        }
+
     }
 
-    console.log("error", error, "data", data)
+
+
+
     const studentDefaultvalue = {
         "name": {
             "firstName": "Paul",
@@ -96,7 +113,7 @@ const CreateStudent = () => {
                 </Col>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
                     <Controller name="image" render={({ field: { onChange, value, ...field } }) => {
-                        return <Form.Item>
+                        return <Form.Item label="Picture">
                             <Input onChange={(e) => onChange(e.target.files?.[0])} type="file" size='large' value={value?.filename} {...field} />
                         </Form.Item>
                     }} />

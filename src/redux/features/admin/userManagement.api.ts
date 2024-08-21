@@ -8,7 +8,6 @@ const uaseManagementApi = baseApi.injectEndpoints({
           url: "/users/create-student",
           method: "POST",
           body: data,
-          formData: true,
         };
       },
     }),
