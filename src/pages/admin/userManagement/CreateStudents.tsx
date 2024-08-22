@@ -32,7 +32,7 @@ const CreateStudent = () => {
             Password: "student1234",
             studentData: data
         }
-
+        // console.log(studenObj)
         formData.append("data", JSON.stringify(studenObj));
         formData.append("file", data.image)
         // console.log([...formData.entries()])
@@ -55,40 +55,40 @@ const CreateStudent = () => {
 
 
 
-    const studentDefaultvalue = {
-        "name": {
-            "firstName": "Paul",
-            "middleName": "sumon",
-            "lastName": "chandra"
-        },
-        "gender": "male",
+    // const studentDefaultvalue = {
+    //     "name": {
+    //         "firstName": "Paul",
+    //         "middleName": "sumon",
+    //         "lastName": "chandra"
+    //     },
+    //     "gender": "male",
 
-        // "email": "sumpaul3@gmail.com",
-        "contactNumber": "123-456-7890",
-        "emergencyContactNo": "098-765-4321",
-        "bloodGroup": "O+",
-        "presentAddress": "123 Main St, Anytown, USA",
-        "permenentAdress": "456 Elm St, Anytown, USA",
-        "guardian": {
-            "fatherName": "Richard Doe",
-            "fatherOccupation": "Engineer",
-            "fatherContactNo": "111-222-3333",
-            "motherName": "Jane Doe",
-            "motherOccupation": "Teacher",
-            "motherContactNo": "444-555-6666"
-        },
-        "localGuardian": {
-            "name": "Tom Smith",
-            "occupation": "Doctor",
-            "contactNo": "777-888-9999",
-            "address": "789 Oak St, Anytown, USA"
-        },
-        "profileImage": "",
+    //     // "email": "sumpaul3@gmail.com",
+    //     "contactNumber": "123-456-7890",
+    //     "emergencyContactNo": "098-765-4321",
+    //     "bloodGroup": "O+",
+    //     "presentAddress": "123 Main St, Anytown, USA",
+    //     "permenentAdress": "456 Elm St, Anytown, USA",
+    //     "guardian": {
+    //         "fatherName": "Richard Doe",
+    //         "fatherOccupation": "Engineer",
+    //         "fatherContactNo": "111-222-3333",
+    //         "motherName": "Jane Doe",
+    //         "motherOccupation": "Teacher",
+    //         "motherContactNo": "444-555-6666"
+    //     },
+    //     "localGuardian": {
+    //         "name": "Tom Smith",
+    //         "occupation": "Doctor",
+    //         "contactNo": "777-888-9999",
+    //         "address": "789 Oak St, Anytown, USA"
+    //     },
+    //     "profileImage": "",
 
-        "isDeleted": false
-    }
+    //     "isDeleted": false
+    // }
     return (
-        <PhForm onSubmit={onSubmit} defaultValues={studentDefaultvalue}>
+        <PhForm onSubmit={onSubmit} >
             <Row gutter={10}>
                 <Divider>Personal Info</Divider>
                 <Col span={24} sm={{ span: 12 }} lg={{ span: 8 }}>
