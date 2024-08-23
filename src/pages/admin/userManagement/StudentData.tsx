@@ -1,100 +1,75 @@
-// import { Table, TableColumnsType, TableProps } from "antd";
-// import { useState } from "react";
-// import { TacademicSemisterData, TQueryParams } from "../../../types";
-// import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
-
-// export type TTableData = Pick<TacademicSemisterData,
-//     '_id' | 'name' | 'startMonth' | 'endMonth' | 'year'>
-// const columns: TableColumnsType<TTableData> = [
-//     {
-//         title: 'Name',
-//         dataIndex: 'name',
-//         showSorterTooltip: { target: 'full-header' },
-//         filters: [
-//             {
-//                 text: 'Autumn',
-//                 value: 'Autumn',
-//             },
-//             {
-//                 text: 'Summer',
-//                 value: 'Summer',
-//             },
-//             {
-//                 text: 'Fall',
-//                 value: 'Fall',
-//             },
-
-//         ],
-//         // specify the condition of filtering result
-//         // here is that finding the name started with `value`
-//         // onFilter: (value, record) => record.name.indexOf(value as string) === 0,
-//         sorter: (a, b) => a.name.length - b.name.length,
-//         sortDirections: ['descend'],
-//     },
-//     {
-//         title: 'Year',
-//         dataIndex: 'year',
-//         // sorter: (a, b) => a.age - b.age,
-//         filters: [
-//             {
-//                 text: "2024",
-//                 value: "2024",
-//             },
-//             {
-//                 text: "2025",
-//                 value: "2025",
-//             },
-//             {
-//                 text: "2026",
-//                 value: "2026",
-//             },
-//             {
-//                 text: "2027",
-//                 value: "2027",
-//             },
-//         ]
-//     },
-//     {
-//         title: 'Start Month',
-//         dataIndex: 'startMonth',
-//     },
-//     {
-//         title: 'End Month',
-//         dataIndex: 'endMonth',
-//     },
-// ];
+import { Button, Col, Flex, Table, TableColumnsType, TableProps } from "antd";
+import { useState } from "react";
+import { TacademicSemisterData, TQueryParams } from "../../../types";
+import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
+import { TTableData } from "../AcademicManagement/academicSemister/AcademicSemister";
 
 
-// const StudentData = () => {
-//     const [queryParams, setQueryParams] = useState<TQueryParams[] | undefined>(undefined)
+const columns: TableColumnsType<TTableData> = [
+    {
+        title: 'Name',
+        dataIndex: 'fullName',
+        showSorterTooltip: { target: 'full-header' },
 
-//     const { data: academicsmster, isFetching } = useGetAllStudentQuery(queryParams)
+    },
+    {
+        title: 'Roll',
+        dataIndex: 'id',
+        // sorter: (a, b) => a.age - b.age,
+    },
+    {
+        title: "Action",
+        dataIndex: "x",
+        render: () => {
+            return <Flex gap={10}>
+                <Button>Detial</Button>
+                <Button>Edit</Button>
+                <Button>Block</Button>
+            </Flex>
+        },
+        width: "1%"
+    }
+];
 
-//     const tableStudent = academicsmster?.map(({ _id, fullName }) => {
-//         return {
-//             key: _id, _id, name, year, startMonth, endMonth
-//         }
-//     })
+type TTableStudent = {
+    _id: string;
+    fullName: string;
+    id: string
+}
 
 
-//     const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
-//         const querynameParams: TQueryParams[] = []
-//         if (extra.action === "filter") {
-//             filters.name?.forEach(item => querynameParams.push({ name: "name", value: item }))
-//             filters.year?.forEach(item => querynameParams.push({ name: "year", value: item }))
-//         }
+const StudentData = () => {
+    const [queryParams, setQueryParams] = useState<TQueryParams[] | undefined>(undefined)
 
-//         setQueryParams(querynameParams)
-//     };
-//     return (
-//         <Table
-//             loading={isFetching}
-//             columns={columns}
-//             dataSource={tableAsemisterData}
-//             onChange={onChange}
-//             showSorterTooltip={{ target: 'sorter-icon' }}
-//         />
-//     )
-// }
+    const { data: studentData, isFetching } = useGetAllStudentQuery(queryParams)
+    const students = studentData?.data
 
-// export default StudentData
+    const tableStudent = students?.map(({ _id, fullName, id }: TTableStudent) => {
+        return {
+            key: _id, fullName, id
+        }
+    })
+
+
+    const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
+        const querynameParams: TQueryParams[] = []
+        if (extra.action === "filter") {
+            filters.name?.forEach(item => querynameParams.push({ name: "name", value: item }))
+            filters.year?.forEach(item => querynameParams.push({ name: "year", value: item }))
+        }
+
+        setQueryParams(querynameParams)
+    };
+    return (
+
+        <Table
+            loading={isFetching}
+            columns={columns}
+            dataSource={tableStudent}
+            onChange={onChange}
+            showSorterTooltip={{ target: 'sorter-icon' }}
+        />
+    )
+}
+
+export default StudentData
