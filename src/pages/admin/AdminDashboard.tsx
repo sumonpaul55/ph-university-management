@@ -2,7 +2,7 @@
 
 const AdminDashboard = () => {
     return (
-        <div>Admin Dashboard</div>
+        <div>Admin Dashboard not visable</div>
     )
 }
 
