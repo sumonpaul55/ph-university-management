@@ -1,15 +1,23 @@
-import { Button, Col, Flex, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Flex, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
-import { TacademicSemisterData, TQueryParams } from "../../../types";
+import { TQueryParams, TStudentData } from "../../../types";
 import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
 import { TTableData } from "../AcademicManagement/academicSemister/AcademicSemister";
 
+type TTableStudentData = {
+    _id: string;
+    fullName: string;
+    id: string;
+}
 
-const columns: TableColumnsType<TTableData> = [
+const columns: TableColumnsType<TTableStudentData> = [
     {
         title: 'Name',
         dataIndex: 'fullName',
         showSorterTooltip: { target: 'full-header' },
+        render: (name) => {
+            return <p style={{ fontWeight: "bold" }}>{name}</p>
+        }
 
     },
     {
@@ -31,11 +39,6 @@ const columns: TableColumnsType<TTableData> = [
     }
 ];
 
-type TTableStudent = {
-    _id: string;
-    fullName: string;
-    id: string
-}
 
 
 const StudentData = () => {
@@ -44,14 +47,14 @@ const StudentData = () => {
     const { data: studentData, isFetching } = useGetAllStudentQuery(queryParams)
     const students = studentData?.data
 
-    const tableStudent = students?.map(({ _id, fullName, id }: TTableStudent) => {
+    const tableStudent = students?.map(({ _id, fullName, id }: TTableStudentData) => {
         return {
-            key: _id, fullName, id
+            key: _id, _id, fullName, id
         }
     })
 
 
-    const onChange: TableProps<TTableData>['onChange'] = (pagination, filters, sorter, extra) => {
+    const onChange: TableProps<TTableStudentData>['onChange'] = (pagination, filters, sorter, extra) => {
         const querynameParams: TQueryParams[] = []
         if (extra.action === "filter") {
             filters.name?.forEach(item => querynameParams.push({ name: "name", value: item }))
@@ -61,7 +64,6 @@ const StudentData = () => {
         setQueryParams(querynameParams)
     };
     return (
-
         <Table
             loading={isFetching}
             columns={columns}

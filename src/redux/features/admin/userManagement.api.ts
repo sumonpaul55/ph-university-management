@@ -1,4 +1,5 @@
 import { baseApi } from "../../api/baseApi";
+import { TresponseWithQuery, TStudentResponse } from "../../../types";
 
 const uaseManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,6 +25,9 @@ const uaseManagementApi = baseApi.injectEndpoints({
           method: "GET",
           params,
         };
+      },
+      transformResponse: (Response: TresponseWithQuery<TStudentResponse>) => {
+        return { data: Response?.data?.result, meta: Response?.data?.meta };
       },
     }),
   }),
