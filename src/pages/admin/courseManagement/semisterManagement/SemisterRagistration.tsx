@@ -6,11 +6,12 @@ import { monthOptions, TResponse, } from "../../../../types/global.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicValidationSchema } from "../../../../schemaValidation/semisterSchemaValidation";
 import { toast } from "sonner";
-import { nameOptions, statuseOptions } from "../../AcademicManagement/ASemister.constant";
+import { statuseOptions } from "../../AcademicManagement/ASemister.constant";
 import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api";
+import PhDatePicker from "../../../../components/form/PhDatePicker";
+import PhInput from "../../../../components/form/PhInput";
 
 
-const currentYear = new Date().getFullYear();
 
 
 const SemisterRagistration = () => {
@@ -23,15 +24,9 @@ const SemisterRagistration = () => {
         }
     })
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const toastId = toast.loading("Creating...")
-        const semisterName = nameOptions[Number(data?.name) - 1]?.label
-        const semisterData = {
-            name: semisterName,
-            code: data.name,
-            year: data.year,
-            startMonth: data.startMonth,
-            endMonth: data.endMonth
-        }
+        // const toastId = toast.loading("Creating...")
+        const semisterRegistrationData = { ...data }
+        console.log(semisterRegistrationData)
         // try {
         //     const res = await createAcademicSemister(semisterData) as TResponse<TacademicSemisterData>
 
@@ -41,17 +36,21 @@ const SemisterRagistration = () => {
         // } catch (err: any) {
         //     toast.error("Something went wrong", { id: toastId })
         // }
+
     }
 
     return (
         <div>
             <Flex justify="center" align="center">
                 <Col span={8}>
-                    <PhForm onSubmit={onSubmit} resolver={zodResolver(academicValidationSchema)}>
+                    <PhForm onSubmit={onSubmit}>
                         <PhSelect disabled={isFetching} name="academicSemister" label="Academic Semister" options={academicSemisterNameData} defalutValue="Select A. Semister" />
                         <PhSelect name="status" label="Status" options={statuseOptions} defalutValue="Select Status" />
-                        <PhSelect name="startMonth" label="Start Month" options={monthOptions} defalutValue="Select start Month" />
-                        <PhSelect name="endMonth" label="Start Month" options={monthOptions} defalutValue="Select End Month" />
+                        <PhDatePicker label="Start Date" name="startDate" />
+                        <PhDatePicker label="Start Date" name="endDate" />
+                        <PhInput name="minCreadit" label="Min Creadit" placeholder="Min Credit" />
+                        <PhInput name="maxCreadit" label="Max Creadit" placeholder="Max Credit" />
+
                         <Button style={{ border: "1px solid gray", width: "100%", marginTop: '20px' }} htmlType="submit">Submit</Button>
                     </PhForm>
                 </Col>

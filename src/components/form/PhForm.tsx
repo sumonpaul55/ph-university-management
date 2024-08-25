@@ -25,7 +25,7 @@ const PhForm = ({ onSubmit, children, defaultValues, resolver }: TSubmitHandler)
 
     const submitForm: SubmitHandler<FieldValues> = (data) => {
         onSubmit(data);
-        methods.reset()
+        // methods.reset()
     }
 
     return (
