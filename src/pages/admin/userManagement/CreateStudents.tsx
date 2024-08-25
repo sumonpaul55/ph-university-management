@@ -15,8 +15,8 @@ const CreateStudent = () => {
     const { data: semister, isLoading: semisterLoading } = useGetAllSemistersQuery(undefined);
     const { data: academicDepartment, } = useGetAcademicDepartmentQuery(undefined, { skip: semisterLoading })
 
-    const [addStudents, { data }] = useAddStudentsMutation();
-    console.log(data)
+    const [addStudents] = useAddStudentsMutation();
+
     const semisterData = semister?.map(item => {
         return { value: item?._id, label: `${item.name}-${item.year}` }
     });
@@ -27,7 +27,6 @@ const CreateStudent = () => {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Creating...")
         const formData = new FormData()
-
         const studenObj = {
             Password: "student1234",
             studentData: data

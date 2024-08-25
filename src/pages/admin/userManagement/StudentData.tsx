@@ -1,8 +1,7 @@
-import { Button, Flex, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Flex, Pagination, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
-import { TQueryParams, TStudentData } from "../../../types";
+import { TQueryParams } from "../../../types";
 import { useGetAllStudentQuery } from "../../../redux/features/admin/userManagement.api";
-import { TTableData } from "../AcademicManagement/academicSemister/AcademicSemister";
 
 type TTableStudentData = {
     _id: string;
@@ -42,10 +41,13 @@ const columns: TableColumnsType<TTableStudentData> = [
 
 
 const StudentData = () => {
-    const [queryParams, setQueryParams] = useState<TQueryParams[] | undefined>(undefined)
-
-    const { data: studentData, isFetching } = useGetAllStudentQuery(queryParams)
-    const students = studentData?.data
+    const [queryParams, setQueryParams] = useState([])
+    const [page, setPage] = useState(1)
+    const { data: studentData, isFetching } = useGetAllStudentQuery([{
+        name: "page", value: page
+    }, { name: "limit", value: 4 }, ...queryParams])
+    const students = studentData?.data;
+    const metaData = studentData?.meta
 
     const tableStudent = students?.map(({ _id, fullName, id }: TTableStudentData) => {
         return {
@@ -54,23 +56,26 @@ const StudentData = () => {
     })
 
 
-    const onChange: TableProps<TTableStudentData>['onChange'] = (pagination, filters, sorter, extra) => {
-        const querynameParams: TQueryParams[] = []
-        if (extra.action === "filter") {
-            filters.name?.forEach(item => querynameParams.push({ name: "name", value: item }))
-            filters.year?.forEach(item => querynameParams.push({ name: "year", value: item }))
-        }
 
-        setQueryParams(querynameParams)
-    };
     return (
-        <Table
-            loading={isFetching}
-            columns={columns}
-            dataSource={tableStudent}
-            onChange={onChange}
-            showSorterTooltip={{ target: 'sorter-icon' }}
-        />
+        <>
+            <Table
+                loading={isFetching}
+                columns={columns}
+                dataSource={tableStudent}
+                pagination={false}
+                showSorterTooltip={{ target: 'sorter-icon' }}
+            />
+            <div style={{ marginTop: "15px" }}>
+                <Pagination
+                    size="small"
+                    total={metaData?.total}
+                    pageSize={metaData?.limit}
+                    showSizeChanger
+                    onChange={(value) => setPage(value)}
+                />
+            </div>
+        </>
     )
 }
 
