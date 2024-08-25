@@ -14,12 +14,14 @@ export const sideBarItemsGenertor = (sideBarItems: TSidebarItems[], role: string
             acc.push({
                 key: items.name,
                 label: items.name,
-                children: items.children.map(child => (
-                    {
-                        key: child.name,
-                        label: <NavLink to={`/${role}/${child.path}`}> {child.name}</NavLink>
+                children: items.children.map(child => {
+                    if (child?.name) {
+                        return {
+                            key: child.name,
+                            label: <NavLink to={`/${role}/${child.path}`}> {child.name}</NavLink>
+                        }
                     }
-                ))
+                })
             })
         }
         return acc

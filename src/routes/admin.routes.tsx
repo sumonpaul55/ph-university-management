@@ -3,13 +3,14 @@ import AcademicSemister from "../pages/admin/AcademicManagement/academicSemister
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
-import CreateStudent from "../pages/admin/userManagement/CreateStudents";
+import CreateStudent from "../pages/admin/userManagement/studentManagement/CreateStudents";
 import CreateAcadmicSemister from "../pages/admin/AcademicManagement/academicSemister/CreateAcadmicSemister";
 import CreateAcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/CreateAcademicFaculty";
 import AcademicFaculty from "../pages/admin/AcademicManagement/academicFaculty/AcademicFaculty";
 import CreateAcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/CreateAcademicDepartment";
 import AcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/AcademicDepartment";
-import StudentData from "../pages/admin/userManagement/StudentData";
+import StudentData from "../pages/admin/userManagement/studentManagement/StudentData";
+import StudentDetails from "../pages/admin/userManagement/studentManagement/StudentDetails";
 
 export const adminPaths = [
     {
@@ -73,6 +74,10 @@ export const adminPaths = [
                 name: 'Student Data',
                 path: 'student-data',
                 element: <StudentData />,
+            },
+            {
+                path: 'student-data/:studentId',
+                element: <StudentDetails />,
             },
             {
                 name: 'Create Member',

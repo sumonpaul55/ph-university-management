@@ -19,8 +19,10 @@ export type TSidebarItems = {
   children?: TSidebarItems[];
 };
 
-export type TsidebarElements = {
-  key: string;
-  label: ReactNode;
-  children?: TsidebarElements[];
-};
+export type TsidebarElements =
+  | {
+      key: string;
+      label: ReactNode;
+      children?: TsidebarElements[];
+    }
+  | undefined;

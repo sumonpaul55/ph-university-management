@@ -17,7 +17,6 @@ export const routesGenerator = (routeItems: TRoutesPaths[]) => {
         });
       });
     }
-
     return acc;
   }, []);
   return routes;
