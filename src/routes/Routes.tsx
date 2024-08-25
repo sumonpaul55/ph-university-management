@@ -21,7 +21,6 @@ const router = createBrowserRouter([
             },
 
         ],
-
     },
     // admin related route
     {

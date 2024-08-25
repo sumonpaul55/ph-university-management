@@ -6,7 +6,7 @@ export type TRoute = {
 };
 
 export type TRoutesPaths = {
-  name: string;
+  name?: string;
   path?: string;
   element?: ReactNode;
   children?: TRoutesPaths[];

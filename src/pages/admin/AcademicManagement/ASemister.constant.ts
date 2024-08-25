@@ -12,3 +12,9 @@ export const nameOptions = [
     label: "Fall",
   },
 ];
+
+export const statuseOptions = [
+  { value: "UPCOMING", label: "UPCOMING" },
+  { value: "ONGOING", label: "ONGOING" },
+  { value: "ENDED", label: "ENDED" },
+];

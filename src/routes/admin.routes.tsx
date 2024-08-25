@@ -1,4 +1,3 @@
-
 import AcademicSemister from "../pages/admin/AcademicManagement/academicSemister/AcademicSemister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
@@ -11,6 +10,11 @@ import CreateAcademicDepartment from "../pages/admin/AcademicManagement/academic
 import AcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/AcademicDepartment";
 import StudentData from "../pages/admin/userManagement/studentManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/studentManagement/StudentDetails";
+import SemisterRagistration from "../pages/admin/courseManagement/semisterManagement/SemisterRagistration";
+import RegisteredSemister from "../pages/admin/courseManagement/semisterManagement/RegisteredSemister";
+import CreateCourse from "../pages/admin/courseManagement/coursesRelated/CreateCourse";
+import OfferedAllCourses from "../pages/admin/courseManagement/coursesRelated/OfferedAllCourses";
+import Courses from "../pages/admin/courseManagement/coursesRelated/Courses";
 
 export const adminPaths = [
     {
@@ -83,6 +87,41 @@ export const adminPaths = [
                 name: 'Create Member',
                 path: 'create-member',
                 element: <CreateStudent />,
+            },
+        ],
+    },
+    {
+        name: 'Course Management',
+        children: [
+            {
+                name: "Semister Registration",
+                path: "semister-ragistration",
+                element: <SemisterRagistration />
+            },
+            {
+                name: "Registered Semister",
+                path: "registered-semister",
+                element: <RegisteredSemister />
+            },
+            {
+                name: "Create Course",
+                path: "create-course",
+                element: <CreateCourse />
+            },
+            {
+                name: "Courses",
+                path: "course",
+                element: <Courses />
+            },
+            {
+                name: "Offer Course",
+                path: "offer-course",
+                element: <CreateCourse />
+            },
+            {
+                name: "Offered Course",
+                path: "offered-course",
+                element: <OfferedAllCourses />
             },
         ],
     },
