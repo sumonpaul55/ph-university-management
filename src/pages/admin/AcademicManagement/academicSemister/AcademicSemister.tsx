@@ -1,6 +1,6 @@
 import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemistersQuery } from "../../../../redux/features/admin/academicManagement.api"
-import { TacademicSemisterData } from "../../../../types/academicManagement.type";
+import { TacademicSemisterData } from "../../../../types/Management.type";
 import { useState } from "react";
 import { TQueryParams } from "../../../../types";
 

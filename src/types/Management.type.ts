@@ -19,3 +19,16 @@ export interface TDepartmentResponse {
   message?: string;
   __v: number;
 }
+export type CreateSemisteRegistration = {
+  academicSemister: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  minCreadit: number;
+  maxCreadit: number;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  message?: string;
+};
