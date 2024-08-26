@@ -11,7 +11,22 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getRegisteredSemister: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/semister-registration",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
   }),
 });
 
-export const { useAddRegisterSemisterMutation } = courseManagementApi;
+export const { useAddRegisterSemisterMutation, useGetRegisteredSemisterQuery } = courseManagementApi;
