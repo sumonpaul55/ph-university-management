@@ -10,7 +10,7 @@ import CreateAcademicDepartment from "../pages/admin/AcademicManagement/academic
 import AcademicDepartment from "../pages/admin/AcademicManagement/academicDepartment/AcademicDepartment";
 import StudentData from "../pages/admin/userManagement/studentManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/studentManagement/StudentDetails";
-import SemisterRagistration from "../pages/admin/courseManagement/semisterManagement/SemisterRagistration";
+import SemisterRagistration from "../pages/admin/courseManagement/semisterManagement/CreateSemisterRagistration";
 import RegisteredSemister from "../pages/admin/courseManagement/semisterManagement/RegisteredSemister";
 import CreateCourse from "../pages/admin/courseManagement/coursesRelated/CreateCourse";
 import OfferedAllCourses from "../pages/admin/courseManagement/coursesRelated/OfferedAllCourses";
