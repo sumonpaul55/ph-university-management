@@ -10,6 +10,7 @@ const courseManagementApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["semisterRegistration"],
     }),
     getRegisteredSemister: builder.query({
       query: (args) => {
@@ -25,8 +26,19 @@ const courseManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["semisterRegistration"],
+    }),
+    updateStatuse: builder.mutation({
+      query: (args) => {
+        return {
+          url: `/semister-registration/${args.id}`,
+          method: "PATCH",
+          body: args.body,
+        };
+      },
+      invalidatesTags: ["semisterRegistration"],
     }),
   }),
 });
 
-export const { useAddRegisterSemisterMutation, useGetRegisteredSemisterQuery } = courseManagementApi;
+export const { useAddRegisterSemisterMutation, useGetRegisteredSemisterQuery, useUpdateStatuseMutation } = courseManagementApi;

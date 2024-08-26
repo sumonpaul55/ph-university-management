@@ -45,5 +45,6 @@ const BaseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, Definition
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: BaseQueryWithRefreshToken,
+  tagTypes: ["semisterRegistration"],
   endpoints: () => ({}),
 });

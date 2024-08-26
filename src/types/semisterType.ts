@@ -12,4 +12,5 @@ export type TRegisterTableData = {
   status: string;
   startDate: Date;
   endDate: Date;
+  _id?: string;
 };

@@ -1,7 +1,10 @@
 import { Button, Dropdown, MenuItemProps, MenuProps, Table, TableColumnsType, Tag } from "antd";
-import { useGetRegisteredSemisterQuery } from "../../../../redux/features/admin/CourseManagement.api";
+import { useGetRegisteredSemisterQuery, useUpdateStatuseMutation } from "../../../../redux/features/admin/CourseManagement.api";
 import { TRegisterTableData } from "../../../../types/semisterType";
 import moment from "moment";
+import { useState } from "react";
+import { toast } from "sonner";
+import { TResponse } from "../../../../types";
 
 const items: MenuProps["items"] = [
     {
@@ -18,70 +21,100 @@ const items: MenuProps["items"] = [
     },
 ]
 
-const handleStatusClick: MenuItemProps["onClick"] = (data) => {
-    console.log(data)
-}
-
-const menuProps = {
-    items,
-    onClick: handleStatusClick
-}
-
-const columns: TableColumnsType = [
-    {
-        title: 'Name',
-        key: "name",
-        dataIndex: 'name',
-        render: (name) => {
-            return <p style={{ fontWeight: "bold" }}>{name}</p>
-        }
-
-    },
-    {
-        title: 'Status',
-        key: "status",
-        dataIndex: 'status',
-        render: (item) => {
-            return <Tag color="red">{item}</Tag>
-        }
-    },
-    {
-        title: 'Start Month',
-        key: "startDate",
-        dataIndex: 'startDate',
-    },
-    {
-        title: 'End Month',
-        key: "endMonth",
-        dataIndex: 'endDate',
-    },
-    {
-        title: "Action",
-        dataIndex: "x",
-        render: () => {
-            return <div>
-                <Dropdown menu={menuProps}>
-                    <Button>Update</Button>
-                </Dropdown>
-            </div>
-        },
-        width: "1%"
-    }
-];
 
 
 
 const RegisteredSemister = () => {
+    const { data: registeredSemister, isFetching } = useGetRegisteredSemisterQuery(undefined)
+    const [updateStatus] = useUpdateStatuseMutation()
+    const [academicSemisterId, setAcademicSemisterId] = useState<string | undefined>()
 
-    const { data: registeredSemister, isFetching } = useGetRegisteredSemisterQuery([])
+    const handleStatusTargetId = (id: string) => {
+        setAcademicSemisterId(id)
+    }
 
-    const tableAsemisterData = registeredSemister?.data?.map(({ academicSemister, status, startDate, endDate }: TRegisterTableData) => {
+    const handleStatusUpdate: MenuItemProps["onClick"] = async (data) => {
+        const toastId = toast.loading("Updating...")
+        // console.log("id", academicSemisterId, data.key)
+        const updateStatusData = {
+            id: academicSemisterId,
+            body: { status: data.key }
+        }
+        const res = await updateStatus(updateStatusData) as TResponse<any>
+        if (res?.error) {
+            toast.error(res?.error?.data?.message, { id: toastId })
+        }
+        if (res?.data?.success) {
+            toast.success(res?.data?.message, { id: toastId })
+        }
+    }
+
+    const menuProps = {
+        items,
+        onClick: handleStatusUpdate
+    }
+
+
+
+
+    const columns: TableColumnsType = [
+        {
+            title: 'Name',
+            key: "name",
+            dataIndex: 'name',
+            render: (name) => {
+                return <p style={{ fontWeight: "bold" }}>{name}</p>
+            }
+
+        },
+        {
+            title: 'Status',
+            key: "status",
+            dataIndex: 'status',
+            render: (item) => {
+                let color = "red"
+                if (item === "UPCOMING") {
+                    color = "blue"
+                }
+                if (item === "ONGOING") {
+                    color = "green"
+                }
+
+                return <Tag color={color}>{item}</Tag>
+            }
+        },
+        {
+            title: 'Start Month',
+            key: "startDate",
+            dataIndex: 'startDate',
+        },
+        {
+            title: 'End Month',
+            key: "endMonth",
+            dataIndex: 'endDate',
+        },
+        {
+            title: "Action",
+            dataIndex: "_id",
+            render: (item) => {
+                return <div>
+                    <Dropdown menu={menuProps} trigger={["click"]}>
+                        <Button onClick={() => handleStatusTargetId(item)}>Update</Button>
+                    </Dropdown>
+                </div>
+            },
+            width: "1%"
+        }
+    ];
+
+    const tableAsemisterData = registeredSemister?.data?.map(({ academicSemister, status, startDate, endDate, _id }: TRegisterTableData) => {
         return {
             key: academicSemister._id,
             name: `${academicSemister?.name} - ${academicSemister?.year}`,
             status,
             startDate: moment(new Date(startDate)).format("MMMM"),
-            endDate: moment(new Date(endDate)).format("MMMM")
+            endDate: moment(new Date(endDate)).format("MMMM"),
+            _id
         }
     })
 
