@@ -1,9 +1,31 @@
-import { Button, Dropdown, Table, TableColumnsType, Tag } from "antd";
+import { Button, Dropdown, MenuItemProps, MenuProps, Table, TableColumnsType, Tag } from "antd";
 import { useGetRegisteredSemisterQuery } from "../../../../redux/features/admin/CourseManagement.api";
 import { TRegisterTableData } from "../../../../types/semisterType";
+import moment from "moment";
 
+const items: MenuProps["items"] = [
+    {
+        key: "UPCOMING",
+        label: 'UPCOMING'
+    },
+    {
+        key: "ONGOING",
+        label: 'ONGOING'
+    },
+    {
+        key: "ENDED",
+        label: 'ENDED'
+    },
+]
 
+const handleStatusClick: MenuItemProps["onClick"] = (data) => {
+    console.log(data)
+}
 
+const menuProps = {
+    items,
+    onClick: handleStatusClick
+}
 
 const columns: TableColumnsType = [
     {
@@ -31,15 +53,15 @@ const columns: TableColumnsType = [
     {
         title: 'End Month',
         key: "endMonth",
-        dataIndex: 'endMonth',
+        dataIndex: 'endDate',
     },
     {
         title: "Action",
         dataIndex: "x",
         render: () => {
             return <div>
-                <Dropdown>
-                    <Button>Hi</Button>
+                <Dropdown menu={menuProps}>
+                    <Button>Update</Button>
                 </Dropdown>
             </div>
         },
@@ -53,11 +75,13 @@ const RegisteredSemister = () => {
 
     const { data: registeredSemister, isFetching } = useGetRegisteredSemisterQuery([])
 
-    const tableAsemisterData = registeredSemister?.data?.map(({ academicSemister, status, startDate }: TRegisterTableData) => {
+    const tableAsemisterData = registeredSemister?.data?.map(({ academicSemister, status, startDate, endDate }: TRegisterTableData) => {
         return {
+            key: academicSemister._id,
             name: `${academicSemister?.name} - ${academicSemister?.year}`,
             status,
-            startDate
+            startDate: moment(new Date(startDate)).format("MMMM"),
+            endDate: moment(new Date(endDate)).format("MMMM")
         }
     })
 

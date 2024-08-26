@@ -4,6 +4,7 @@ type TacademicSemister = {
   code: string;
   startMonth: string;
   endMonth: string;
+  _id?: string;
 };
 
 export type TRegisterTableData = {
