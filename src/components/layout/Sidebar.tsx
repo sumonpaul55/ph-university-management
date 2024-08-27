@@ -11,7 +11,7 @@ import { selectCurrentUser } from '../../redux/features/auth/AuthSlice';
 
 const Sidebar = () => {
     const user = useAppSelector(selectCurrentUser)
-    let sideBaritems;
+    let sideBaritems: any;
     switch (user?.role) {
         case userRole.ADMIN:
             sideBaritems = sideBarItemsGenertor(adminPaths, userRole.ADMIN);

@@ -13,7 +13,7 @@ export type TRoutesPaths = {
 };
 
 export type TSidebarItems = {
-  name: string;
+  name?: string;
   path?: string;
   element?: ReactNode;
   children?: TSidebarItems[];
@@ -21,7 +21,7 @@ export type TSidebarItems = {
 
 export type TsidebarElements =
   | {
-      key: string;
+      key: string | undefined;
       label: ReactNode;
       children?: TsidebarElements[];
     }

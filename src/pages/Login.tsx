@@ -22,8 +22,8 @@ const Login = () => {
     const dispatch = useDispatch()
 
     const defaultValues = {
-        id: "A-0001",
-        password: "4844838"
+        id: "A-0002",
+        password: "654321"
     }
 
     const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
@@ -34,7 +34,7 @@ const Login = () => {
                 password: data.password
             }
             const res = await login(userInfo).unwrap()
-
+            // console.log(res)
             if (!res?.data?.needsPasswordChange) {
                 navigate("/change-password")
             } else {

@@ -21,7 +21,8 @@ export const adminPaths = [
         name: 'Dashboard',
         path: 'dashboard',
         element: <AdminDashboard />,
-    }, {
+    },
+    {
         name: "Academic Management",
         children: [
             {
