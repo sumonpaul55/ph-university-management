@@ -7,15 +7,17 @@ type TSelectProps = {
     options: { value: string; label: string }[] | undefined;
     defalutValue?: string;
     disabled?: boolean;
-    mode?: "multiple" | undefined
+    mode?: "multiple" | undefined;
+    placeholder?: string;
 }
-const PhSelect = ({ label, name, options, defalutValue, disabled, mode }: TSelectProps) => {
+const PhSelect = ({ label, name, options, defalutValue, disabled, mode, placeholder }: TSelectProps) => {
     return (
         <Controller name={name} render={({ field, fieldState: { error } }) => {
             return <Form.Item label={label}>
                 <Select
                     mode={mode}
                     defaultValue={defalutValue}
+                    placeholder={placeholder}
                     style={{ width: "100%" }}
                     {...field}
                     options={options}

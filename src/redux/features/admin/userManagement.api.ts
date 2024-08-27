@@ -30,7 +30,16 @@ const uaseManagementApi = baseApi.injectEndpoints({
         return { data: Response?.data?.result, meta: Response?.data?.meta };
       },
     }),
+    ChangePassword: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/auth/change-password",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useAddStudentsMutation, useGetAllStudentQuery } = uaseManagementApi;
+export const { useAddStudentsMutation, useGetAllStudentQuery, useChangePasswordMutation } = uaseManagementApi;

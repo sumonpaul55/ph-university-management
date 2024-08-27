@@ -13,6 +13,7 @@ export type TError = {
     success: boolean;
   };
   status?: number;
+  message?: string;
 };
 
 export type TResponse<T> = {

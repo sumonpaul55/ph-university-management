@@ -35,11 +35,14 @@ const Login = () => {
             }
             const res = await login(userInfo).unwrap()
 
-            const user = verifyToken(res.data.accessToken) as TUser
-
-            dispatch(setUser({ user, token: res.data.accessToken }))
-            navigate(`/${user.role}/dashboard`)
-            toast.success("You are logged in successfully", { id: toastId, duration: 2000 })
+            if (!res?.data?.needsPasswordChange) {
+                navigate("/change-password")
+            } else {
+                const user = verifyToken(res.data.accessToken) as TUser
+                dispatch(setUser({ user, token: res.data.accessToken }))
+                toast.success("You are logged in successfully", { id: toastId, duration: 2000 })
+                navigate(`/${user.role}/dashboard`)
+            }
         } catch (error: any) {
             toast.error(error?.data.message, { id: toastId })
         }
